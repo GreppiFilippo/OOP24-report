@@ -16,3 +16,4 @@ bin/
 *.fls
 template.md
 .idea/
+.vscode
