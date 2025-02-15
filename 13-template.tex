@@ -109,8 +109,7 @@ In sintesi, l'aggiunta di nuovi Model, Controller e View non richiede modifiche 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/mvc.png}  % Modifica width se serve
-    \caption{Esempio di game object}
-    \label{img:gameObject}
+    \label{img:mvc}
 \end{figure}
 
 % arrivato qui
@@ -168,8 +167,43 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 %
 \subsection{Filippo Greppi}
 %
-\paragraph{Problema} %%descrizione del problema
-\paragraph{Soluzione} %% descrizione della soluzione
+%
+\paragraph{Problema} Salvataggio e caricamento dello stato di gioco
+\paragraph{Soluzione} Il sistema di salvataggio e caricamento utilizza la serializzazione per convertire lo stato del gioco in un formato salvabile su file. Quando il giocatore decide di salvare la partita, il SaveManager prende l'istanza attuale di World che contiene tutte le informazioni sullo stato del gioco, seleziona i dati necessari, e li scrive su file. Quando il giocatore vuole riprendere una partita salvata, il SaveManager legge i dati dal file selezionato ricreando il mondo. Per facilitare la gestione dei salvataggi, la classe Saves permette di ottenere una lista ordinata dei file disponibili, così da poter scegliere facilmente quale caricare.
+%
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/saves.png}  % Modifica width se serve
+    \label{img:saves}
+\end{figure}
+%
+\paragraph{Problema} Nel contesto del progetto, il controller principale (MainController) deve gestire dinamicamente diversi componenti del gioco, tra cui menu, enigmi, mondo, e altre sezioni del gioco. Ogni componente del gioco è gestito da un controller separato, ma la creazione e la gestione di questi controller può risultare complessa e propensa a errori se non organizzata correttamente.
+\paragraph{Soluzione} La gestione dinamica dei controller è stata implementata utilizzando una combinazione del Factory Pattern e della Controller Map. La classe ControllerFactory funge da punto centrale per la creazione di tutti i controller necessari al gioco. In questo modo, ogni controller viene creato tramite la factory, evitando la ripetizione della logica di creazione in più punti del codice. Se in futuro fosse necessario aggiungere un nuovo controller basterebbe aggiungerlo alla factory. Per facilitare la gestione dei controller durante l’esecuzione del gioco, ho utilizzato una Controller Map, una mappa che tiene traccia di tutti i controller attivi. Ogni controller è associato a un nome univoco, che permette di recuperarlo rapidamente quando necessario. L’integrazione tra la ControllerFactory e la ControllerMap è cruciale per il corretto funzionamento del sistema. Quando un controller è richiesto, se non gia presente, la factory lo crea e lo aggiunge alla mappa dei controller.
+%
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/maincontroller.png}  % Modifica width se serve
+    \label{img:maincontroller}
+\end{figure}
+
+\paragraph{Problema} Identificare i controller diversi all’interno di tutto il sistema.
+\paragraph{Soluzione} Per identificare i vari controller all’interno del sistema, ho utilizzato l’enumerazione ControllerName, che rappresenta i nomi dei controller e le loro stringhe corrispondenti. Ogni costante dell’enum è associata a una stringa unica che descrive il controller corrispondente, consentendo una gestione centralizzata e semplificata dei controller.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/controllerName.png}  % Modifica width se serve
+    \label{img:controllerName}
+\end{figure}
+
+\paragraph{Problema} Garantire un’esperienza di gioco fluida all’interno del mondo principale
+\paragraph{Soluzione} Il WorldController segue un approccio reattivo e dinamico, garantendo una risposta immediata agli input dell’utente senza introdurre ritardi o interruzioni nell’esperienza.
+Il controller utilizza un game loop a 60 FPS, regolando il tempo di esecuzione per mantenere costante la fluidità. Il ciclo principale verifica lo stato del gioco, controlla se il giocatore ha vinto, gestisce gli input e aggiorna la visualizzazione. Grazie a questa struttura, il giocatore percepisce un movimento naturale e senza scatti.
+Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni specifiche come interagire con oggetti o aprire l’inventario, permettendo al giocatore di esplorare l’ambiente senza interruzioni. Inoltre, se un’azione come INTERACT o INVENTORY viene eseguita, il loop evita input multipli indesiderati.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/worldController.png}  % Modifica width se serve
+    \label{img:controllerName}
+\end{figure}
+%%
 %
 \subsection{Ettore Spaccini}
 %
@@ -192,8 +226,6 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 	% inserire quali test sono stati fatti e come sono stati fatti
 
 \end{itemize}
-
-
 
 
 \section{Note di sviluppo}
