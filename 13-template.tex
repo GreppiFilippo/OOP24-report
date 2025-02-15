@@ -118,8 +118,53 @@ In sintesi, l'aggiunta di nuovi Model, Controller e View non richiede modifiche 
 %% forse va messo la descrizione
 \subsection{Elena Fucci}
 %
-\paragraph{Problema} %%descrizione del problema
-\paragraph{Soluzione} %% descrizione della soluzione
+\paragraph{Problema}Nel gioco Mind-Escape, quando un giocatore raccoglie degli oggetti, questi devono essere visualizzati all'interno di un inventario, che deve poter essere modificato durante il gioco.
+La sfida è quella di garantire che l'inventario possa essere aggiornato dinamicamente e salvato in modo persistente, affinchè le modifiche possano essere recuperate anche in sessioni di gioco future. %%descrizione del problema
+\paragraph{Soluzione}Il problema viene gestito tramite la creazione di un’interfaccia Player che si compone di un’interfaccia Inventory. 
+L'inventario può essere aggiornato in tempo reale quando il giocatore raccoglie oggetti. 
+Inoltre, il Player è direttamente collegato al mondo collegato a sua volta ad un file di salvataggio, il che consente di salvare lo stato corrente del giocatore, compreso l'inventario, su un file. 
+In questo modo, il gioco è in grado di mantenere le modifiche correnti all'inventario e ripristinarle quando il giocatore riprende la partita. %% descrizione della soluzione
+%
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/player.png}  % Modifica width se serve
+    \caption{Esempio di game object}
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}All’interno del gioco sono presenti vari enigmi. Uno degli enigmi da risolvere è un puzzle. 
+Per implementare questa parte, è necessario permettere al gioco di passare da una vista principale a una vista dedicata al puzzle, in modo che il giocatore possa interagire con il puzzle senza interruzioni. 
+%
+\paragraph{Soluzione}Per risolvere questo problema, ho adottato il pattern MVC (Model-View-Controller). 
+Questo approccio consente al mainController di trasferire temporaneamente il controllo al controller dell’enigma, che si occupa di gestire la logica del puzzle e di visualizzare la vista del puzzle corrispondente. 
+L’uso del pattern consente di separare chiaramente la logica del gioco dalla parte di view rendendo il codice più modulare. 
+Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, il che facilita l'aggiornamento o l'aggiunta di nuove funzionalità.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/puzzle.png}  % Modifica width se serve
+    \caption{Esempio di game object}
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}Nel gioco, l'inventario è utilizzato per visualizzare gli oggetti raccolti e alcuni indizi. La gestione dell'inventario deve permettere una visualizzazione chiara e aggiornata durante il gioco. Questo richiede una separazione della logica di gestione degli oggetti e dei dati dalla loro visualizzazione, al fine di garantire una gestione efficiente e flessibile dell'inventario.
+%
+\paragraph{Soluzione}Per risolvere il problema, è stato adottato il pattern MVC (Model-View-Controller). In questo schema, la logica di gestione dell'inventario è separata dalla sua visualizzazione, permettendo una chiara distinzione tra i dati (modello), l'interfaccia utente (vista) e il controllo (controller). Questa separazione consente di isolare le modifiche in una singola componente senza influire sulle altre.Poiché ogni componente ha un ruolo chiaro e definito, è più facile mantenere e aggiornare il codice, aggiungere nuove funzionalità o migliorare quelle esistenti diventa più semplice senza rischio di causare conflitti tra le diverse logiche.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/inventory.png}  % Modifica width se serve
+    \caption{Esempio di game object}
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}All’interno del gioco sia nell'inventario che nell'enigma del puzzle era necessario che le immagini fornite si adattassero alla dimensione del pulsante (JButton) in cui erano contenute.
+%
+\paragraph{Soluzione}Per risolvere questo problema, ho creato la classe ImageButton. Questa classe estende JButton e gestisce il ridimensionamento delle immagini in modo che si adattino automaticamente alla dimensione del pulsante. Ho dunque utilizzato questa classe sia nell'inventario che nel puzzle per ridimensionare le immagini direttamente all'interno dei pulsanti.In questo modo, è stato possibile limitare la duplicazione del codice rispettando il principio DRY. Inoltre centralizzando la logica del ridimensionamento delle immagini in una classe specifica, la manutenzione del codice diventa più semplice. 
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/button.png}  % Modifica width se serve
+    \caption{Esempio di game object}
+    \label{img:gameObject}
+\end{figure}
 %
 \subsection{Filippo Greppi}
 %
