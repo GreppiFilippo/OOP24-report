@@ -208,12 +208,12 @@ Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni 
 \subsection{Ettore Spaccini}
 %
 \paragraph{Problema} %%descrizione del problema
-Creazione delle Porte con Differenti Meccanismi di Sblocco.
+Creazione delle porte con differenti meccanismi di sblocco.
 Nel nostro gioco Mind Escape, le porte possono avere tre stati distinti:
 \begin{itemize}
-	\item Sempre aperte, permettono il passaggio senza restrizioni.
-	\item Bloccate da un enigma, il giocatore deve risolverlo per sbloccarle.
-	\item Bloccate da un oggetto (Pickable), il giocatore deve possedere un oggetto specifico nell’inventario per sbloccarle.
+	\item Sempre aperte: permettono il passaggio senza restrizioni.
+	\item Bloccate da un enigma: il giocatore deve risolverlo per sbloccarle.
+	\item Bloccate da un oggetto (Pickable): il giocatore deve possedere un oggetto specifico nell’inventario per sbloccarle.
 \end{itemize}
 \paragraph{Soluzione} %% descrizione della soluzione
 Utilizzo del Pattern Decorator e del Template Method.
@@ -240,7 +240,6 @@ Nel gioco Mind Escape, il personaggio può interagire con diversi tipi di oggett
 \begin{itemize}
 	\item Pickable: oggetti raccolti nell'inventario.
 	\item Simple Door: porte sempre accessibili senza restrizioni.
-	\item Locked Door: porte bloccate da un enigma o da un oggetto.
 	\item DoorLockedWithEnigma: porte sbloccate solo dopo aver risolto un enigma.
 	\item DoorLockedWithPickable: porte sbloccate se il giocatore possiede un oggetto specifico.
 	\item UnpickableWithEnigma: oggetti non raccoglibili che attivano un enigma.
@@ -249,7 +248,7 @@ Nel gioco Mind Escape, il personaggio può interagire con diversi tipi di oggett
 \end{itemize}
 La gestione separata di questi oggetti avrebbe reso il codice rigido, con molte classi duplicate e difficili da estendere.
 \paragraph{Soluzione} %% descrizione della soluzione
-Implementazione di una Factory per gli Oggetti Interagibili.
+Implementazione di una Factory per gli oggetti interagibili.
 Per evitare ripetizioni e rendere il codice più modulare, ho utilizzato il Factory Pattern, centralizzando la creazione di tutti gli oggetti interagibili (Interactable). La InteractableFactory fornisce metodi per creare ogni tipo di oggetto interagibile, accettando solo gli attributi essenziali per costruire ciascun oggetto senza duplicare la logica.
 Il gioco può così facilmente supportare nuovi oggetti interagibili senza modifiche invasive al codice.
 Grazie a questo design, il sistema è più scalabile, chiaro e manutenibile, garantendo una gestione efficiente di tutti gli oggetti con cui il giocatore può interagire.
