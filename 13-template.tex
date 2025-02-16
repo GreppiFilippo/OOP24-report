@@ -14,7 +14,7 @@
 
 \title{Relazione per\\``Programmazione ad Oggetti''}
 
-\author{Filippo Greppi, Elena Fucci, Spaccini Ettore}
+\author{Filippo Greppi, Elena Fucci, Spaccini Ettore, Spagnoli Marcello}
 \date{\today}
 
 
@@ -56,7 +56,6 @@ Il passaggio tra le stanze avviene mediante porte, che possono essere sbloccate 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/model.png}  % Modifica width se serve
-    \caption{Esempio di game object}
     \label{img:gameObject}
 \end{figure}
 
@@ -120,7 +119,7 @@ In questo modo, il gioco è in grado di mantenere le modifiche correnti all'inve
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/player.png}  % Modifica width se serve
-    \label{img:gameObject}
+    \label{img:player}
 \end{figure}
 %
 \paragraph{Problema}All’interno del gioco sono presenti vari enigmi. Uno degli enigmi da risolvere è un puzzle. 
@@ -133,7 +132,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/puzzle.png}  % Modifica width se serve
-    \label{img:gameObject}
+    \label{img:puzzle}
 \end{figure}
 %
 \paragraph{Problema}Nel gioco, l'inventario è utilizzato per visualizzare gli oggetti raccolti e alcuni indizi. La gestione dell'inventario deve permettere una visualizzazione chiara e aggiornata durante il gioco. Questo richiede una separazione della logica di gestione degli oggetti e dei dati dalla loro visualizzazione, al fine di garantire una gestione efficiente e flessibile dell'inventario.
@@ -142,7 +141,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/inventory.png}  % Modifica width se serve
-    \label{img:gameObject}
+    \label{img:inventory}
 \end{figure}
 %
 \paragraph{Problema}All’interno del gioco sia nell'inventario che nell'enigma del puzzle era necessario che le immagini fornite si adattassero alla dimensione del pulsante (JButton) in cui erano contenute.
@@ -151,7 +150,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/button.png}  % Modifica width se serve
-    \label{img:gameObject}
+    \label{img:button}
 \end{figure}
 %
 \subsection{Filippo Greppi}
@@ -190,7 +189,7 @@ Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/worldController.png}  % Modifica width se serve
-    \label{img:controllerName}
+    \label{img:worldController}
 \end{figure}
 %%
 %
@@ -329,7 +328,7 @@ L'implementazione di CollisionDetector viene quindi usata per determinare se il 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/CollisionDetector.png}
-    \label{img:ObjectExtractor}
+    \label{img:CollisionDetector}
 \end{figure}
 
 \paragraph{Problema} %%descrizione del problema
