@@ -304,6 +304,11 @@ Per gestire la creazione delle stanze ho usato una Static Factory, che a partire
 Ho usato questo approccio perché essendo che le Door per essere create hanno bisogno del riferimento alla stanza di destinazione, è importante che prima vengano create tutte le stanze e che poi vengano popolate.
 In questa maniera per aggiungere una stanza al gioco basterebbe mettere il suo file tmx nella cartella risorse apposita e aggiungere il nome della stanza nell'enum RoomNames
 Per evitare la creazione in modo scorretto di stanze, ho messo il costruttore di RoomImpl privato e reso questo l'unico modo di generarle.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/Room.png}
+    \label{img:ObjectExtractor}
+\end{figure}
 
 \paragraph{Problema} %%descrizione del problema
 Le stanze hanno bisogno di essere popolate con gli oggetti di gioco sempre presenti nel file .tmx.
@@ -315,7 +320,7 @@ Nel caso di aggiunta di nuove stanze per ciò che riguarda questo problema non s
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/ObjExtractor.png}
+    \includegraphics[width=0.8\textwidth]{img/ObjExtr.png}
     \label{img:ObjectExtractor}
 \end{figure}
 
@@ -327,8 +332,8 @@ Ad ogni movimento del giocatore, è necessario verificare se entra in contatto c
 L'implementazione di CollisionDetector viene quindi usata per determinare se il player può avanzare o meno e per avere il riferimento all'oggetto con cui nel caso egli può interagire
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/CollisionDetector.png}
-    \label{img:CollisionDetector}
+    \includegraphics[width=0.8\textwidth]{img/CD.png}
+    \label{img:ObjectExtractor}
 \end{figure}
 
 \paragraph{Problema} %%descrizione del problema
@@ -342,7 +347,7 @@ La gestione della visualizzazione della stanza è affidata a un Room Renderer, c
 Il giocatore è disegnato separatamente sopra l’immagine della stanza da un’altra classe AnimatedPlayerRenderer, che ne gestisce anche l’animazione. 
 La rilevazione dei cambiamenti che implicano l’aggiornamento dell’immagine, ovvero raccolta di oggeti pickable e cambio stanza, è affidata al controller che implementa l’interfaccia WorldObserver, mentre il World è l'observable.
 Quando viene rilevato un cambiamento si impone la rigenerazione dell'immagine della stanza.
-Di fatto una implementazione di WorldView offre la possibiltà di essere composta modularmente da queste due classi sopracitate e da un gestore di input (segue)
+Di fatto una implementazione di WorldView offre la possibiltà di essere composta modularmente, rispettando il SRP da queste due classi sopracitate e da un gestore di input (segue)
 
 \paragraph{Problema} %%descrizione del problema
 WorldView deve essere in grado di catturare in modo efficiente gli input dell'utente e di organizzarli per far si che il controller ne possa fruire e gestire.
@@ -376,7 +381,17 @@ I principali elementi del Model sono stati testati utilizzando JUnit. Di seguito
 
 \subsection{Marcello Spagnoli}
 \begin{itemize}
-	\item
+    \item \textbf{Utilizzo di Stream e lambda expressions:}
+    Permalink: \url{https://github.com/GreppiFilippo/OOP24-mind-escape/blob/6b13a346f9c2334868ee8e1ccebcd882424284b0/src/main/java/mindescape/model/world/rooms/impl/RoomImpl.java#L113}
+    \item \textbf{Utilizzo della libreria TiledReader:}
+    Link: \url{https://github.com/AlexHeyman/TiledReader}
+    Permalink: \url{https://github.com/GreppiFilippo/OOP24-mind-escape/blob/6b13a346f9c2334868ee8e1ccebcd882424284b0/src/main/java/mindescape/view/world/RoomRendererImpl.java#L61}
+    \item \textbf{Utilizzo della libreria Guava (per gestire estensione file):}
+    Permalink: \url{https://github.com/GreppiFilippo/OOP24-mind-escape/blob/6b13a346f9c2334868ee8e1ccebcd882424284b0/src/main/java/mindescape/model/world/rooms/impl/RoomImpl.java#L41}
+    \item \textbf{Utilizzo di Optional:}
+    Permalink: \url{https://github.com/GreppiFilippo/OOP24-mind-escape/blob/6b13a346f9c2334868ee8e1ccebcd882424284b0/src/main/java/mindescape/model/world/core/impl/CollisionDetectorImpl.java#L20}
+    \item \textbf{Link a risorse}Capire se si runna da jar https://stackoverflow.com/questions/482560/can-you-tell-on-runtime-if-youre-running-java-from-within-a-jar
+    \item \textbf{Link a risorse}Manipolazione immagini https://www.google.com/search?client=safari&rls=en&q=flipping+image+java&ie=UTF-8&oe=UTF-8 
 \end{itemize}
 %
 \section{Note di sviluppo}
@@ -496,6 +511,14 @@ I comandi di gioco sono i seguenti:
 \begin{itemize}
  \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=179154#p248293}
  \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=180101#p248884}
+\end{itemize}
+
+\subsection{marcello.spagnoli2@studio.unibo.it}
+
+\begin{itemize}
+ \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=179154#p248384}
+ \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=180101#p248819}
+ \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=181206#p250415}
 \end{itemize}
 
 
