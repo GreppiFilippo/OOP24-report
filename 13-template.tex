@@ -352,7 +352,7 @@ Di fatto una implementazione di WorldView offre la possibiltà di essere compost
 \paragraph{Problema} %%descrizione del problema
 WorldView deve essere in grado di catturare in modo efficiente gli input dell'utente e di organizzarli per far si che il controller ne possa fruire e gestire.
 \paragraph{Soluzione} %% descrizione della soluzione
-La classe WorldViewImpl si occupa di raccogliere gli eventi della tastiera tramite l'interfaccia KeyListener. Essa registra gli eventi di pressione e rilascio dei tasti e memorizza lo stato dei tasti in un oggetto InputManager, utilizzato per centralizzare la gestione degli stati dei tasti. Questo oggetto traccia quale tasto è stato premuto e mantiene il suo stato (premuto o rilasciato). A ogni ciclo di gioco il controller richiede lo stato dei tasti e sulla base di questo esegue le opportune operazioni
+La classe InputManager si occupa di raccogliere gli eventi della tastiera tramite l'interfaccia KeyListener. Essa registra gli eventi di pressione e rilascio dei tasti e memorizza lo stato dei tasti. InputManager quale tasto è stato premuto e mantiene il suo stato (premuto o rilasciato). A ogni ciclo di gioco il controller richiede lo stato dei tasti e sulla base di questo esegue le opportune operazioni
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/WorldView.png}
