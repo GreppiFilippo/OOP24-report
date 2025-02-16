@@ -14,7 +14,7 @@
 
 \title{Relazione per\\``Programmazione ad Oggetti''}
 
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/mindescape.png}  % Modifica width se serve
     \label{img:mindescape}
@@ -59,7 +59,7 @@ Mind Escape è un gioco ambientato in un mondo suddiviso in più stanze, attrave
 L’avventura ha inizio in una stanza iniziale, da cui il giocatore potrà accedere progressivamente alle altre stanze. 
 Il passaggio tra le stanze avviene mediante porte, che possono essere sbloccate risolvendo enigmi o utilizzando oggetti raccolti durante il gioco. L'obiettivo finale è raggiungere l’ultima stanza e interagire con uno specifico oggetto, evento che determina la vittoria.
 
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/model.png}  % Modifica width se serve
     \label{img:model}
@@ -77,7 +77,7 @@ Gli oggetti di gioco si suddividono in due categorie principali:
 	\item Oggetti non interagibili (NonInteractable): questi oggetti hanno una funzione puramente estetica o di ambientazione, e non influenzano direttamente il gameplay. Tuttavia, il giocatore può collidere con essi.
 \end{itemize}
 
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/gameObject.png}  % Modifica width se serve
     \label{img:gameObject}
@@ -103,7 +103,7 @@ Questi input sono generati dall'utente e possono scatenare eventi che modificano
 In sintesi, l'aggiunta di nuovi Model, Controller e View non richiede modifiche alla struttura centrale dell'applicazione, garantendo così una scalabilità e una modularità efficaci.
 %
 
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/mvc.png}  % Modifica width se serve
     \label{img:mvc}
@@ -121,7 +121,7 @@ L'inventario può essere aggiornato in tempo reale quando il giocatore raccoglie
 Inoltre, il Player è direttamente collegato al mondo collegato a sua volta ad un file di salvataggio, il che consente di salvare lo stato corrente del giocatore, compreso l'inventario, su un file. 
 In questo modo, il gioco è in grado di mantenere le modifiche correnti all'inventario e ripristinarle quando il giocatore riprende la partita. %% descrizione della soluzione
 %
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/player.png}  % Modifica width se serve
     \label{img:player}
@@ -134,7 +134,7 @@ Per implementare questa parte, è necessario permettere al gioco di passare da u
 Questo approccio consente al mainController di trasferire temporaneamente il controllo al controller dell’enigma, che si occupa di gestire la logica del puzzle e di visualizzare la vista del puzzle corrispondente. 
 L’uso del pattern consente di separare chiaramente la logica del gioco dalla parte di view rendendo il codice più modulare. 
 Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, il che facilita l'aggiornamento o l'aggiunta di nuove funzionalità.
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/puzzle.png}  % Modifica width se serve
     \label{img:puzzle}
@@ -143,7 +143,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \paragraph{Problema}Nel gioco, l'inventario è utilizzato per visualizzare gli oggetti raccolti e alcuni indizi. La gestione dell'inventario deve permettere una visualizzazione chiara e aggiornata durante il gioco. Questo richiede una separazione della logica di gestione degli oggetti e dei dati dalla loro visualizzazione, al fine di garantire una gestione efficiente e flessibile dell'inventario.
 %
 \paragraph{Soluzione}Per risolvere il problema, è stato adottato il pattern MVC (Model-View-Controller). In questo schema, la logica di gestione dell'inventario è separata dalla sua visualizzazione, permettendo una chiara distinzione tra i dati (modello), l'interfaccia utente (vista) e il controllo (controller). Questa separazione consente di isolare le modifiche in una singola componente senza influire sulle altre.Poiché ogni componente ha un ruolo chiaro e definito, è più facile mantenere e aggiornare il codice, aggiungere nuove funzionalità o migliorare quelle esistenti diventa più semplice senza rischio di causare conflitti tra le diverse logiche.
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/inventory.png}  % Modifica width se serve
     \label{img:inventory}
@@ -152,7 +152,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \paragraph{Problema}All’interno del gioco sia nell'inventario che nell'enigma del puzzle era necessario che le immagini fornite si adattassero alla dimensione del pulsante (JButton) in cui erano contenute.
 %
 \paragraph{Soluzione}Per risolvere questo problema, ho creato la classe ImageButton. Questa classe estende JButton e gestisce il ridimensionamento delle immagini in modo che si adattino automaticamente alla dimensione del pulsante. Ho dunque utilizzato questa classe sia nell'inventario che nel puzzle per ridimensionare le immagini direttamente all'interno dei pulsanti.In questo modo, è stato possibile limitare la duplicazione del codice rispettando il principio DRY. Inoltre centralizzando la logica del ridimensionamento delle immagini in una classe specifica, la manutenzione del codice diventa più semplice. 
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/button.png}  % Modifica width se serve
     \label{img:button}
@@ -164,7 +164,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \paragraph{Problema} Salvataggio e caricamento dello stato di gioco
 \paragraph{Soluzione} Il sistema di salvataggio e caricamento utilizza la serializzazione per convertire lo stato del gioco in un formato salvabile su file. Quando il giocatore decide di salvare la partita, il SaveManager prende l'istanza attuale di World che contiene tutte le informazioni sullo stato del gioco, seleziona i dati necessari, e li scrive su file. Quando il giocatore vuole riprendere una partita salvata, il SaveManager legge i dati dal file selezionato ricreando il mondo. Per facilitare la gestione dei salvataggi, la classe Saves permette di ottenere una lista ordinata dei file disponibili, così da poter scegliere facilmente quale caricare.
 %
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/saves.png}  % Modifica width se serve
     \label{img:saves}
@@ -173,7 +173,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \paragraph{Problema} Nel contesto del progetto, il controller principale (MainController) deve gestire dinamicamente diversi componenti del gioco, tra cui menu, enigmi, mondo, e altre sezioni del gioco. Ogni componente del gioco è gestito da un controller separato, ma la creazione e la gestione di questi controller può risultare complessa e propensa a errori se non organizzata correttamente.
 \paragraph{Soluzione} La gestione dinamica dei controller è stata implementata utilizzando una combinazione del Factory Pattern e della Controller Map. La classe ControllerFactory funge da punto centrale per la creazione di tutti i controller necessari al gioco. In questo modo, ogni controller viene creato tramite la factory, evitando la ripetizione della logica di creazione in più punti del codice. Se in futuro fosse necessario aggiungere un nuovo controller basterebbe aggiungerlo alla factory. Per facilitare la gestione dei controller durante l’esecuzione del gioco, ho utilizzato una Controller Map, una mappa che tiene traccia di tutti i controller attivi. Ogni controller è associato a un nome univoco, che permette di recuperarlo rapidamente quando necessario. L’integrazione tra la ControllerFactory e la ControllerMap è cruciale per il corretto funzionamento del sistema. Quando un controller è richiesto, se non gia presente, la factory lo crea e lo aggiunge alla mappa dei controller.
 %
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/maincontroller.png}  % Modifica width se serve
     \label{img:maincontroller}
@@ -181,7 +181,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 
 \paragraph{Problema} Identificare i controller diversi all’interno di tutto il sistema.
 \paragraph{Soluzione} Per identificare i vari controller all’interno del sistema, ho utilizzato l’enumerazione ControllerName, che rappresenta i nomi dei controller e le loro stringhe corrispondenti. Ogni costante dell’enum è associata a una stringa unica che descrive il controller corrispondente, consentendo una gestione centralizzata e semplificata dei controller.
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/controllerName.png}  % Modifica width se serve
     \label{img:controllerName}
@@ -191,7 +191,7 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \paragraph{Soluzione} Il WorldController segue un approccio reattivo e dinamico, garantendo una risposta immediata agli input dell’utente senza introdurre ritardi o interruzioni nell’esperienza.
 Il controller utilizza un game loop a 60 FPS, regolando il tempo di esecuzione per mantenere costante la fluidità. Il ciclo principale verifica lo stato del gioco, controlla se il giocatore ha vinto, gestisce gli input e aggiorna la visualizzazione. Grazie a questa struttura, il giocatore percepisce un movimento naturale e senza scatti.
 Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni specifiche come interagire con oggetti o aprire l’inventario, permettendo al giocatore di esplorare l’ambiente senza interruzioni. Inoltre, se un’azione come INTERACT o INVENTORY viene eseguita, il loop evita input multipli indesiderati.
-\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+\begin{figure}   %   indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/worldController.png}  % Modifica width se serve
     \label{img:worldController}
@@ -223,7 +223,7 @@ Classi:
 \end{itemize}
 La logica di sblocco viene gestita attraverso il Template Method isUnlocked() in AbstractDoorDecorator, il quale viene sovrascritto nelle classi derivate per specificare il comportamento di sblocco. 
 Questa implementazione permette di aggiungere nuovi tipi di blocco senza modificare la classe DoorImpl, garantendo un design scalabile, mantenibile e seguendo il principio Open-Closed della programmazione a oggetti.
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/doors.png}
     \label{img:doors}
@@ -246,7 +246,7 @@ Implementazione di una Factory per gli oggetti interagibili.
 Per evitare ripetizioni e rendere il codice più modulare, ho utilizzato il Factory Pattern, centralizzando la creazione di tutti gli oggetti interagibili (Interactable). La InteractableFactory fornisce metodi per creare ogni tipo di oggetto interagibile, accettando solo gli attributi essenziali per costruire ciascun oggetto senza duplicare la logica.
 Il gioco può così facilmente supportare nuovi oggetti interagibili senza modifiche invasive al codice.
 Grazie a questo design, il sistema è più scalabile, chiaro e manutenibile, garantendo una gestione efficiente di tutti gli oggetti con cui il giocatore può interagire.
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/interactableFactory.png}
     \label{img:interactableFactory}
@@ -282,12 +282,12 @@ Vantaggi:
 	\item \textbf{Manutenibilità migliorata:} è possibile aggiornare la logica di un enigma senza toccare la UI o il controller.
 	\item \textbf{Maggiore modularità:} gli enigmi possono essere facilmente riutilizzati o modificati per adattarsi a nuove esigenze.
 \end{itemize}
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/enigmaPassword.png}
     \label{img:enigmaPassword}
 \end{figure}
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/caesarCipher.png}
     \label{img:caesarCipher}
@@ -309,7 +309,7 @@ Per gestire la creazione delle stanze ho usato una Static Factory, che a partire
 Ho usato questo approccio perché essendo che le Door per essere create hanno bisogno del riferimento alla stanza di destinazione, è importante che prima vengano create tutte le stanze e che poi vengano popolate.
 In questa maniera per aggiungere una stanza al gioco basterebbe mettere il suo file tmx nella cartella risorse apposita e aggiungere il nome della stanza nell'enum RoomNames
 Per evitare la creazione in modo scorretto di stanze, ho messo il costruttore di RoomImpl privato e reso questo l'unico modo di generarle.
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/Room.png}
     \label{img:Room}
@@ -323,7 +323,7 @@ La conversione da TiledObject (la modellazione di oggetto fornita da TiledReader
 Siccome certi oggetti sono associati a specifici enigmi o rewards, ho creato due Simple Factory a cui viene passata la stringa che identifica l'oggetto di cui si fa richiesta e che lo creano (EnigmaFactoryImpl e RewardFactory).
 Nel caso di aggiunta di nuove stanze per ciò che riguarda questo problema non si deve fare nulla se non avere l'accortezza di aggiornare le Simple Factory se i nuovi GameObject incorporano rewards o enigmi
 
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/ObjExtr.png}
     \label{img:ObjExtr}
@@ -335,7 +335,7 @@ Ad ogni movimento del giocatore, è necessario verificare se entra in contatto c
 \paragraph{Soluzione} %% descrizione della soluzione
 È stata creata un'interfaccia CollisionDetector, con un metodo confronta la posizione e le dimensioni del giocatore gli oggetti nella stanza. Se viene rilevata una collisione, il metodo restituisce un Optional<GameObject>.
 L'implementazione di CollisionDetector viene quindi usata per determinare se il player può avanzare o meno e per avere il riferimento all'oggetto con cui nel caso egli può interagire
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/CD.png}
     \label{img:CD}
@@ -358,7 +358,7 @@ Di fatto una implementazione di WorldView offre la possibiltà di essere compost
 WorldView deve essere in grado di catturare in modo efficiente gli input dell'utente e di organizzarli per far si che il controller ne possa fruire e gestire.
 \paragraph{Soluzione} %% descrizione della soluzione
 La classe InputManager si occupa di raccogliere gli eventi della tastiera tramite l'interfaccia KeyListener. Essa registra gli eventi di pressione e rilascio dei tasti e memorizza lo stato dei tasti. InputManager quale tasto è stato premuto e mantiene il suo stato (premuto o rilasciato). A ogni ciclo di gioco il controller richiede lo stato dei tasti e sulla base di questo esegue le opportune operazioni
-\begin{figure}[h]
+\begin{figure} 
     \centering
     \includegraphics[width=0.8\textwidth]{img/WorldView.png}
     \label{img:WorldView}
