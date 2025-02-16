@@ -117,8 +117,49 @@ In sintesi, l'aggiunta di nuovi Model, Controller e View non richiede modifiche 
 %% forse va messo la descrizione
 \subsection{Elena Fucci}
 %
-\paragraph{Problema} %%descrizione del problema
-\paragraph{Soluzione} %% descrizione della soluzione
+\paragraph{Problema}Nel gioco Mind-Escape, quando un giocatore raccoglie degli oggetti, questi devono essere visualizzati all'interno di un inventario, che deve poter essere modificato durante il gioco.
+La sfida è quella di garantire che l'inventario possa essere aggiornato dinamicamente e salvato in modo persistente, affinchè le modifiche possano essere recuperate anche in sessioni di gioco future. %%descrizione del problema
+\paragraph{Soluzione}Il problema viene gestito tramite la creazione di un’interfaccia Player che si compone di un’interfaccia Inventory. 
+L'inventario può essere aggiornato in tempo reale quando il giocatore raccoglie oggetti. 
+Inoltre, il Player è direttamente collegato al mondo collegato a sua volta ad un file di salvataggio, il che consente di salvare lo stato corrente del giocatore, compreso l'inventario, su un file. 
+In questo modo, il gioco è in grado di mantenere le modifiche correnti all'inventario e ripristinarle quando il giocatore riprende la partita. %% descrizione della soluzione
+%
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/player.png}  % Modifica width se serve
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}All’interno del gioco sono presenti vari enigmi. Uno degli enigmi da risolvere è un puzzle. 
+Per implementare questa parte, è necessario permettere al gioco di passare da una vista principale a una vista dedicata al puzzle, in modo che il giocatore possa interagire con il puzzle senza interruzioni. 
+%
+\paragraph{Soluzione}Per risolvere questo problema, ho adottato il pattern MVC (Model-View-Controller). 
+Questo approccio consente al mainController di trasferire temporaneamente il controllo al controller dell’enigma, che si occupa di gestire la logica del puzzle e di visualizzare la vista del puzzle corrispondente. 
+L’uso del pattern consente di separare chiaramente la logica del gioco dalla parte di view rendendo il codice più modulare. 
+Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, il che facilita l'aggiornamento o l'aggiunta di nuove funzionalità.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/puzzle.png}  % Modifica width se serve
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}Nel gioco, l'inventario è utilizzato per visualizzare gli oggetti raccolti e alcuni indizi. La gestione dell'inventario deve permettere una visualizzazione chiara e aggiornata durante il gioco. Questo richiede una separazione della logica di gestione degli oggetti e dei dati dalla loro visualizzazione, al fine di garantire una gestione efficiente e flessibile dell'inventario.
+%
+\paragraph{Soluzione}Per risolvere il problema, è stato adottato il pattern MVC (Model-View-Controller). In questo schema, la logica di gestione dell'inventario è separata dalla sua visualizzazione, permettendo una chiara distinzione tra i dati (modello), l'interfaccia utente (vista) e il controllo (controller). Questa separazione consente di isolare le modifiche in una singola componente senza influire sulle altre.Poiché ogni componente ha un ruolo chiaro e definito, è più facile mantenere e aggiornare il codice, aggiungere nuove funzionalità o migliorare quelle esistenti diventa più semplice senza rischio di causare conflitti tra le diverse logiche.
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/inventory.png}  % Modifica width se serve
+    \label{img:gameObject}
+\end{figure}
+%
+\paragraph{Problema}All’interno del gioco sia nell'inventario che nell'enigma del puzzle era necessario che le immagini fornite si adattassero alla dimensione del pulsante (JButton) in cui erano contenute.
+%
+\paragraph{Soluzione}Per risolvere questo problema, ho creato la classe ImageButton. Questa classe estende JButton e gestisce il ridimensionamento delle immagini in modo che si adattino automaticamente alla dimensione del pulsante. Ho dunque utilizzato questa classe sia nell'inventario che nel puzzle per ridimensionare le immagini direttamente all'interno dei pulsanti.In questo modo, è stato possibile limitare la duplicazione del codice rispettando il principio DRY. Inoltre centralizzando la logica del ridimensionamento delle immagini in una classe specifica, la manutenzione del codice diventa più semplice. 
+\begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/button.png}  % Modifica width se serve
+    \label{img:gameObject}
+\end{figure}
 %
 \subsection{Filippo Greppi}
 %
@@ -163,8 +204,97 @@ Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni 
 \subsection{Ettore Spaccini}
 %
 \paragraph{Problema} %%descrizione del problema
+Creazione delle porte con differenti meccanismi di sblocco.
+Nel nostro gioco Mind Escape, le porte possono avere tre stati distinti:
+\begin{itemize}
+	\item Sempre aperte: permettono il passaggio senza restrizioni.
+	\item Bloccate da un enigma: il giocatore deve risolverlo per sbloccarle.
+	\item Bloccate da un oggetto (Pickable): il giocatore deve possedere un oggetto specifico nell’inventario per sbloccarle.
+\end{itemize}
 \paragraph{Soluzione} %% descrizione della soluzione
-
+Utilizzo del Pattern Decorator e del Template Method.
+Per garantire flessibilità ed estensibilità, ho adottato due pattern di progettazione:
+\begin{itemize}
+	\item Pattern Decorator: consente di estendere dinamicamente il comportamento delle porte senza modificare direttamente la classe base.
+	\item Pattern Template Method: garantisce che il comportamento delle porte bloccate venga gestito in modo strutturato nelle sottoclassi, evitando duplicazioni di codice.
+\end{itemize}
+Classi:
+\begin{itemize}
+	\item Creazione della Porta Base: la classe BaseDoor rappresenta una porta semplice, sempre aperta. Implementa il metodo onAction(Player player), che permette al giocatore di raggiungere la stanza di destinazione.
+	\item Decorazione con Enigma: DoorLockedWithEnigma estende AbstractDoorDecorator e richiede la risoluzione di un enigma per lo sblocco.
+	\item Decorazione con Pickable: La classe DoorLockedWithPickable segue lo stesso principio, ma invece di un enigma controlla se il giocatore possiede un oggetto con un ID specifico.
+\end{itemize}
+La logica di sblocco viene gestita attraverso il Template Method isUnlocked() in AbstractDoorDecorator, il quale viene sovrascritto nelle classi derivate per specificare il comportamento di sblocco. 
+Questa implementazione permette di aggiungere nuovi tipi di blocco senza modificare la classe DoorImpl, garantendo un design scalabile, mantenibile e seguendo il principio Open-Closed della programmazione a oggetti.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/doors.png}
+    \label{img:doors}
+\end{figure}
+\paragraph{Problema} %%descrizione del problema
+Creazione degli Oggetti Interagibili (Interactable).
+Nel gioco Mind Escape, il personaggio può interagire con diversi tipi di oggetti, ognuno con comportamenti specifici:
+\begin{itemize}
+	\item Pickable: oggetti raccolti nell'inventario.
+	\item Simple Door: porte sempre accessibili senza restrizioni.
+	\item DoorLockedWithEnigma: porte sbloccate solo dopo aver risolto un enigma.
+	\item DoorLockedWithPickable: porte sbloccate se il giocatore possiede un oggetto specifico.
+	\item UnpickableWithEnigma: oggetti non raccoglibili che attivano un enigma.
+	\item LockedUnpickable: oggetti non raccoglibili che si sbloccano con un oggetto presente nell'inventario.
+	\item Unpickable: oggetti non raccoglibili che, se interagiti, possono rilasciare un oggetto raccoglibile.
+\end{itemize}
+La gestione separata di questi oggetti avrebbe reso il codice rigido, con molte classi duplicate e difficili da estendere.
+\paragraph{Soluzione} %% descrizione della soluzione
+Implementazione di una Factory per gli oggetti interagibili.
+Per evitare ripetizioni e rendere il codice più modulare, ho utilizzato il Factory Pattern, centralizzando la creazione di tutti gli oggetti interagibili (Interactable). La InteractableFactory fornisce metodi per creare ogni tipo di oggetto interagibile, accettando solo gli attributi essenziali per costruire ciascun oggetto senza duplicare la logica.
+Il gioco può così facilmente supportare nuovi oggetti interagibili senza modifiche invasive al codice.
+Grazie a questo design, il sistema è più scalabile, chiaro e manutenibile, garantendo una gestione efficiente di tutti gli oggetti con cui il giocatore può interagire.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/interactableFactory.png}
+    \label{img:interactableFactory}
+\end{figure}
+\paragraph{Problema} %%descrizione del problema
+Nel gioco Mind Escape, gli enigmi rappresentano un aspetto fondamentale della progressione. Tuttavia, gestire ogni enigma con una logica monolitica avrebbe reso il codice difficile da mantenere e scalare. Il problema principale era separare la logica di ogni enigma dalla sua interfaccia grafica e dal controllo dell’interazione con l’utente.
+\paragraph{Soluzione} %% descrizione della soluzione
+Implementazione del Pattern MVC.
+Per gestire gli enigmi in modo modulare e scalabile, ho utilizzato il pattern Model-View-Controller (MVC). Ogni enigma è trattato come un'istanza indipendente di MVC, con tre componenti chiave:
+\begin{itemize}
+	\item Model (CaesarCipherModel, EnigmaPasswordModel)
+		\begin{itemize}
+			\item Contiene la logica dell’enigma (es. cifratura del testo nel caso del Caesar Cipher).
+			\item Memorizza lo stato dell’enigma (risolto o meno).
+			\item Implementa metodi per verificare la soluzione.
+		\end{itemize}
+	\item View (CaesarCipherViewImpl, EnigmaPasswordViewImpl)
+		\begin{itemize}
+			\item Gestisce l’interfaccia grafica, visualizzando l’enigma e i risultati dell’interazione.
+			\item Riceve input dall’utente (es. shift per la cifratura, password per l’enigma testuale).
+			\item Mostra il feedback all’utente.
+		\end{itemize}
+	\item Controller (CaesarCipherControllerImpl, EnigmaPasswordControllerImpl)
+		\begin{itemize}
+			\item Interpreta l’input dell’utente e aggiorna il Model di conseguenza.
+			\item Chiede alla View di aggiornare la UI in base ai cambiamenti nel Model.
+			\item Comunica con il MainController per gestire il flusso del gioco e notificarlo a seguito della terminazione di un enigma, reimpostando come controller corrente quello del World.
+		\end{itemize}
+\end{itemize}
+Vantaggi:
+\begin{itemize}
+	\item Separazione delle responsabilità: ogni componente è responsabile di un solo aspetto. 
+	\item Manutenibilità migliorata: è possibile aggiornare la logica di un enigma senza toccare la UI o il controller.
+	\item Maggiore modularità: gli enigmi possono essere facilmente riutilizzati o modificati per adattarsi a nuove esigenze.
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/enigmaPassword.png}
+    \label{img:enigmaPassword}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/caesarCipher.png}
+    \label{img:caesarCipher}
+\end{figure}
 %
 \subsection{Marcello Spagnoli}
 %
@@ -258,17 +388,11 @@ I comandi di gioco sono i seguenti:
 \chapter{Esercitazioni di laboratorio}
 
  
-\subsection{paperon.depaperoni@studio.unibo.it} % email di chi lo ha fatto
+\subsection{ettore.spaccini@studio.unibo.it}
 
 \begin{itemize}
- \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
- \item Laboratorio 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+ \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=179154#p248293}
+ \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=180101#p248884}
 \end{itemize}
 
 
