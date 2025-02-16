@@ -207,22 +207,22 @@ Il sistema distingue tra movimenti direzionali (UP, DOWN, LEFT, RIGHT) e azioni 
 Creazione delle porte con differenti meccanismi di sblocco.
 Nel nostro gioco Mind Escape, le porte possono avere tre stati distinti:
 \begin{itemize}
-	\item Sempre aperte: permettono il passaggio senza restrizioni.
-	\item Bloccate da un enigma: il giocatore deve risolverlo per sbloccarle.
-	\item Bloccate da un oggetto (Pickable): il giocatore deve possedere un oggetto specifico nell’inventario per sbloccarle.
+	\item \textbf{Sempre aperte:} permettono il passaggio senza restrizioni.
+	\item \textbf{Bloccate da un enigma:} il giocatore deve risolverlo per sbloccarle.
+	\item \textbf{Bloccate da un oggetto (Pickable):} il giocatore deve possedere un oggetto specifico nell’inventario per sbloccarle.
 \end{itemize}
 \paragraph{Soluzione} %% descrizione della soluzione
 Utilizzo del Pattern Decorator e del Template Method.
 Per garantire flessibilità ed estensibilità, ho adottato due pattern di progettazione:
 \begin{itemize}
-	\item Pattern Decorator: consente di estendere dinamicamente il comportamento delle porte senza modificare direttamente la classe base.
-	\item Pattern Template Method: garantisce che il comportamento delle porte bloccate venga gestito in modo strutturato nelle sottoclassi, evitando duplicazioni di codice.
+	\item \textbf{Pattern Decorator:} consente di estendere dinamicamente il comportamento delle porte senza modificare direttamente la classe base.
+	\item \textbf{Pattern Template Method:} garantisce che il comportamento delle porte bloccate venga gestito in modo strutturato nelle sottoclassi, evitando duplicazioni di codice.
 \end{itemize}
 Classi:
 \begin{itemize}
-	\item Creazione della Porta Base: la classe BaseDoor rappresenta una porta semplice, sempre aperta. Implementa il metodo onAction(Player player), che permette al giocatore di raggiungere la stanza di destinazione.
-	\item Decorazione con Enigma: DoorLockedWithEnigma estende AbstractDoorDecorator e richiede la risoluzione di un enigma per lo sblocco.
-	\item Decorazione con Pickable: La classe DoorLockedWithPickable segue lo stesso principio, ma invece di un enigma controlla se il giocatore possiede un oggetto con un ID specifico.
+	\item \textbf{Creazione della Porta Base:} la classe BaseDoor rappresenta una porta semplice, sempre aperta. Implementa il metodo onAction(Player player), che permette al giocatore di raggiungere la stanza di destinazione.
+	\item \textbf{Decorazione con Enigma:} DoorLockedWithEnigma estende AbstractDoorDecorator e richiede la risoluzione di un enigma per lo sblocco.
+	\item \textbf{Decorazione con Pickable:} La classe DoorLockedWithPickable segue lo stesso principio, ma invece di un enigma controlla se il giocatore possiede un oggetto con un ID specifico.
 \end{itemize}
 La logica di sblocco viene gestita attraverso il Template Method isUnlocked() in AbstractDoorDecorator, il quale viene sovrascritto nelle classi derivate per specificare il comportamento di sblocco. 
 Questa implementazione permette di aggiungere nuovi tipi di blocco senza modificare la classe DoorImpl, garantendo un design scalabile, mantenibile e seguendo il principio Open-Closed della programmazione a oggetti.
@@ -235,13 +235,13 @@ Questa implementazione permette di aggiungere nuovi tipi di blocco senza modific
 Creazione degli Oggetti Interagibili (Interactable).
 Nel gioco Mind Escape, il personaggio può interagire con diversi tipi di oggetti, ognuno con comportamenti specifici:
 \begin{itemize}
-	\item Pickable: oggetti raccolti nell'inventario.
-	\item Simple Door: porte sempre accessibili senza restrizioni.
-	\item DoorLockedWithEnigma: porte sbloccate solo dopo aver risolto un enigma.
-	\item DoorLockedWithPickable: porte sbloccate se il giocatore possiede un oggetto specifico.
-	\item UnpickableWithEnigma: oggetti non raccoglibili che attivano un enigma.
-	\item LockedUnpickable: oggetti non raccoglibili che si sbloccano con un oggetto presente nell'inventario.
-	\item Unpickable: oggetti non raccoglibili che, se interagiti, possono rilasciare un oggetto raccoglibile.
+	\item \textbf{Pickable:} oggetti raccolti nell'inventario.
+	\item \textbf{Simple Door:} porte sempre accessibili senza restrizioni.
+	\item \textbf{DoorLockedWithEnigma:} porte sbloccate solo dopo aver risolto un enigma.
+	\item \textbf{DoorLockedWithPickable:} porte sbloccate se il giocatore possiede un oggetto specifico.
+	\item \textbf{UnpickableWithEnigma:} oggetti non raccoglibili che attivano un enigma.
+	\item \textbf{LockedUnpickable:} oggetti non raccoglibili che si sbloccano con un oggetto presente nell'inventario.
+	\item \textbf{Unpickable:} oggetti non raccoglibili che, se interagiti, possono rilasciare un oggetto raccoglibile.
 \end{itemize}
 La gestione separata di questi oggetti avrebbe reso il codice rigido, con molte classi duplicate e difficili da estendere.
 \paragraph{Soluzione} %% descrizione della soluzione
@@ -260,19 +260,19 @@ Nel gioco Mind Escape, gli enigmi rappresentano un aspetto fondamentale della pr
 Implementazione del Pattern MVC.
 Per gestire gli enigmi in modo modulare e scalabile, ho utilizzato il pattern Model-View-Controller (MVC). Ogni enigma è trattato come un'istanza indipendente di MVC, con tre componenti chiave:
 \begin{itemize}
-	\item Model (CaesarCipherModel, EnigmaPasswordModel)
+	\item \textbf{Model} (CaesarCipherModel, EnigmaPasswordModel)
 		\begin{itemize}
 			\item Contiene la logica dell’enigma (es. cifratura del testo nel caso del Caesar Cipher).
 			\item Memorizza lo stato dell’enigma (risolto o meno).
 			\item Implementa metodi per verificare la soluzione.
 		\end{itemize}
-	\item View (CaesarCipherViewImpl, EnigmaPasswordViewImpl)
+	\item \textbf{View} (CaesarCipherViewImpl, EnigmaPasswordViewImpl)
 		\begin{itemize}
 			\item Gestisce l’interfaccia grafica, visualizzando l’enigma e i risultati dell’interazione.
 			\item Riceve input dall’utente (es. shift per la cifratura, password per l’enigma testuale).
 			\item Mostra il feedback all’utente.
 		\end{itemize}
-	\item Controller (CaesarCipherControllerImpl, EnigmaPasswordControllerImpl)
+	\item \textbf{Controller} (CaesarCipherControllerImpl, EnigmaPasswordControllerImpl)
 		\begin{itemize}
 			\item Interpreta l’input dell’utente e aggiorna il Model di conseguenza.
 			\item Chiede alla View di aggiornare la UI in base ai cambiamenti nel Model.
@@ -281,9 +281,9 @@ Per gestire gli enigmi in modo modulare e scalabile, ho utilizzato il pattern Mo
 \end{itemize}
 Vantaggi:
 \begin{itemize}
-	\item Separazione delle responsabilità: ogni componente è responsabile di un solo aspetto. 
-	\item Manutenibilità migliorata: è possibile aggiornare la logica di un enigma senza toccare la UI o il controller.
-	\item Maggiore modularità: gli enigmi possono essere facilmente riutilizzati o modificati per adattarsi a nuove esigenze.
+	\item \textbf{Separazione delle responsabilità:} ogni componente è responsabile di un solo aspetto. 
+	\item \textbf{Manutenibilità migliorata:} è possibile aggiornare la logica di un enigma senza toccare la UI o il controller.
+	\item \textbf{Maggiore modularità:} gli enigmi possono essere facilmente riutilizzati o modificati per adattarsi a nuove esigenze.
 \end{itemize}
 \begin{figure}[h]
     \centering
