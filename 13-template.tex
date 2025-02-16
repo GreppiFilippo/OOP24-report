@@ -127,7 +127,6 @@ In questo modo, il gioco è in grado di mantenere le modifiche correnti all'inve
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/player.png}  % Modifica width se serve
-    \caption{Esempio di game object}
     \label{img:gameObject}
 \end{figure}
 %
@@ -141,7 +140,6 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/puzzle.png}  % Modifica width se serve
-    \caption{Esempio di game object}
     \label{img:gameObject}
 \end{figure}
 %
@@ -151,7 +149,6 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/inventory.png}  % Modifica width se serve
-    \caption{Esempio di game object}
     \label{img:gameObject}
 \end{figure}
 %
@@ -161,7 +158,6 @@ Poichè modifiche alla logica del puzzle non influenzano la vista, e viceversa, 
 \begin{figure}[h]  % [h] indica che la figura sarà posizionata il più vicino possibile
     \centering
     \includegraphics[width=0.8\textwidth]{img/button.png}  % Modifica width se serve
-    \caption{Esempio di game object}
     \label{img:gameObject}
 \end{figure}
 %
@@ -222,13 +218,14 @@ Per garantire flessibilità ed estensibilità, ho adottato due pattern di proget
 	\item Pattern Decorator: consente di estendere dinamicamente il comportamento delle porte senza modificare direttamente la classe base.
 	\item Pattern Template Method: garantisce che il comportamento delle porte bloccate venga gestito in modo strutturato nelle sottoclassi, evitando duplicazioni di codice.
 \end{itemize}
+Classi:
 \begin{itemize}
 	\item Creazione della Porta Base: la classe BaseDoor rappresenta una porta semplice, sempre aperta. Implementa il metodo onAction(Player player), che permette al giocatore di raggiungere la stanza di destinazione.
 	\item Decorazione con Enigma: DoorLockedWithEnigma estende AbstractDoorDecorator e richiede la risoluzione di un enigma per lo sblocco.
 	\item Decorazione con Pickable: La classe DoorLockedWithPickable segue lo stesso principio, ma invece di un enigma controlla se il giocatore possiede un oggetto con un ID specifico.
 \end{itemize}
 La logica di sblocco viene gestita attraverso il Template Method isUnlocked() in AbstractDoorDecorator, il quale viene sovrascritto nelle classi derivate per specificare il comportamento di sblocco. 
-Questa implementazione permette di aggiungere nuovi tipi di blocco senza modificare la classe DoorImpl, garantendo un design scalabile e mantenibile e seguendo il principio Open-Closed della programmazione a oggetti.
+Questa implementazione permette di aggiungere nuovi tipi di blocco senza modificare la classe DoorImpl, garantendo un design scalabile, mantenibile e seguendo il principio Open-Closed della programmazione a oggetti.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/doors.png}
@@ -254,8 +251,8 @@ Il gioco può così facilmente supportare nuovi oggetti interagibili senza modif
 Grazie a questo design, il sistema è più scalabile, chiaro e manutenibile, garantendo una gestione efficiente di tutti gli oggetti con cui il giocatore può interagire.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/InteractableFactory.png}
-    \label{img:InteractableFactory}
+    \includegraphics[width=0.8\textwidth]{img/interactableFactory.png}
+    \label{img:interactableFactory}
 \end{figure}
 \paragraph{Problema} %%descrizione del problema
 Nel gioco Mind Escape, gli enigmi rappresentano un aspetto fondamentale della progressione. Tuttavia, gestire ogni enigma con una logica monolitica avrebbe reso il codice difficile da mantenere e scalare. Il problema principale era separare la logica di ogni enigma dalla sua interfaccia grafica e dal controllo dell’interazione con l’utente.
@@ -305,13 +302,12 @@ Vantaggi:
 \paragraph{Soluzione} %% descrizione della soluzione
 %
 
-
 \chapter{Sviluppo}
 \section{Testing automatizzato}
 
 \begin{itemize}
 	\item 
-	% inserire quali test sono stati fatti e come sono stati fatti
+	% inserire quali test    sono stati fatti e come sono stati fatti
 
 \end{itemize}
 
